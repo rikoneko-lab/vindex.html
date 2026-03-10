@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Thanks - Tulip Garden</title>
+    <style>
+        /* 全体のデザイン設定 */
+        body {
+            /* ゴシック体（Noto Sansなどでより洗練された印象に） */
+            font-family: "Helvetica Neue", "Arial", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+            
+            /* ★背景：カラフルなチューリップの野原（CSSグラデーションとパターンで表現） */
+            background: 
+                /* 手前の舞う花びら（JavaScriptで生成）のためのレイヤー */
+                linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.4) 100%),
+                /* チューリップのカラフルな色合い（ピンク、黄、白のグラデーション） */
+                linear-gradient(135deg, #fff5f7 0%, #fffde0 50%, #f0f8ff 100%);
+            background-attachment: fixed;
+            
+            /* 文字色：少し柔らかい茶色のまま */
+            color: #5a4a4a; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* 花びらを舞わせるため */
+            position: relative;
+        }
+
+        /* ★チューリップの花びらアニメーション（CSS） */
+        .petal {
+            position: absolute;
+            background-color: #ffcad4; /* 基本はピンク */
+            border-radius: 150% 0 150% 0; /* 花びらの形 */
+            animation: fall 10s infinite linear;
+            opacity: 0.8;
+            z-index: 1; /* コンテナの後ろ */
+        }
+        /* カラフルな花びら（黄、白） */
+        .petal.yellow { background-color: #ffd700; }
+        .petal.white { background-color: #ffffff; }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* ★コンテナ：デザインを洗練（グラスモーフィズム） */
+        .container {
+            /* 白（少しだけ透ける）に変更し、ぼかしエフェクトを追加 */
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px); /* 後ろのチューリップが透けて見える */
+            padding: 50px 40px; /* 上下を広げてゆったりと */
+            border-radius: 30px; /* 角をより丸く */
+            /* 影を柔らかく、より立体的に */
+            box-shadow: 0 10px 30px rgba(180, 160, 120, 0.2);
+            text-align: center;
+            width: 350px; /* 幅を少し広く */
+            border: 1px solid rgba(255, 255, 255, 0.5); /* 枠線を薄く */
+            z-index: 10; /* コンテナを一番前に */
+            position: relative;
+        }
+
+        h2 {
+            font-weight: 300; /* 文字を細くして上品に */
+            letter-spacing: 2px; /* 文字間隔を広げて高級感を */
+            color: #d88a9a; /* サクラ色を少しアクセントに */
+            margin-bottom: 30px; /* 下の余白を広く */
+        }
+
+        /* ★入力エリア：箱を大きく、デザインを洗練 */
+        input {
+            width: 100%;
+            padding: 15px; /* パディングを大きくして箱を拡大 */
+            margin: 15px 0; /* 上下の余白を広く */
+            border: 1px solid #f0e68c; /* 淡い黄色 */
+            border-radius: 10px; /* 角をより丸く */
+            box-sizing: border-box;
+            outline: none;
+            /* 入力中の背景を白に、影をつけて立体感を */
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 16px; /* 文字を少し大きく */
+            transition: 0.3s;
+        }
+        /* 入力エリアにフォーカスが当たった時の演出 */
+        input:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        /* ★ボタン：デザインを洗練 */
+        button {
+            /* 明るい黄色（ゴールド） */
+            background-color: #ffd700; 
+            color: white;
+            border: none;
+            padding: 15px 40px; /* 上下左右を広くして存在感を */
+            border-radius: 50px; /* 完全に丸く */
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px; /* 文字を少し大きく */
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            margin-top: 20px; /* 上の余白を広く */
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+        button:hover {
+            /* 少し濃いオレンジ（ゴールド）に変更し、少し大きく */
+            background-color: #ffa500; 
+            transform: translateY(-2px); /* 少し上に浮かせる */
+            box-shadow: 0 6px 15px rgba(255, 165, 0, 0.4);
+        }
+
+        /* 非表示設定 */
+        #video-section { display: none; }
+
+        /* ★動画選択アイテム：デザインを洗練 */
+        .video-item {
+            margin: 25px 0; /* 余白を広く */
+            padding: 20px; /* パディングを大きく */
+            background-color: rgba(255, 255, 255, 0.8); /* 白背景を追加 */
+            border-radius: 15px; /* 角を丸く */
+            border: 1px solid #f0e68c; /* 淡い黄色 */
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-item:hover {
+            /* ホバー時の演出を強化 */
+            border-color: #ff8c00; /* オレンジ */
+            transform: scale(1.03); /* 少し大きく */
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.2);
+        }
+        
+        .video-item b {
+            font-size: 1.1rem; /* 文字を少し大きく */
+            color: #d88a9a; /* サクラ色をアクセントに */
+        }
+
+        video {
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 15px;
+            display: none; /* 最初は隠しておく */
+            /* 動画に薄い黄色い枠をつける */
+            border: 3px solid #fffde0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    const colors = ['', 'yellow', 'white']; // ピンク、黄、白
+    for (let i = 0; i < 30; i++) {
+        let petal = document.createElement('div');
+        petal.className = 'petal ' + colors[Math.floor(Math.random() * colors.length)];
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDuration = (Math.random() * 5 + 5) + 's'; // 落ちる速度をランダムに
+        petal.style.width = petal.style.height = (Math.random() * 15 + 10) + 'px'; // サイズをランダムに
+        petal.style.animationDelay = Math.random() * 5 + 's'; // 開始時間をずらす
+        document.body.appendChild(petal);
+    }
+</script>
+
+<div class="container">
+    <div id="login-section">
+        <h2>Welcome</h2>
+        <p style="font-size: 0.9rem; color: #888; margin-bottom: 20px;">Please enter the password</p>
+        <input type="text" id="username" placeholder="ユーザー名">
+        <input type="password" id="password" placeholder="パスワード">
+        <button onclick="checkLogin()">サインイン</button>
+    </div>
+
+    <div id="video-section">
+        <h2>動画を選択してください</h2>
+        <p style="font-size: 0.9rem; color: #888; margin-bottom: 30px;"></p>
+        
+        <div class="video-item" onclick="toggleVideo('vid2')">
+            <b>みんなでhappy birthday to you！</b>
+            <video id="vid2" controls src="video2.mp4"></video>
+        </div>
+
+         <div class="video-item" onclick="toggleVideo('vid1')">
+            <b>こせさんからひとこと</b>
+            <video id="vid1" controls src="video1.mp4"></video>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function checkLogin() {
+        const user = document.getElementById("username").value;
+        const pass = document.getElementById("password").value;
+
+        // 設定：ここを好きな文字に変えてね
+        const correctUser = "admin"; 
+        const correctPass = "admin"; 
+
+        if (user === correctUser && pass === correctPass) {
+            document.getElementById("login-section").style.display = "none";
+            document.getElementById("video-section").style.display = "block";
+        } else {
+            alert("ユーザー名またはパスワードが違います");
+        }
+    }
+
+    function toggleVideo(id) {
+        const v = document.getElementById(id);
+        if (v.style.display === "block") {
+            v.style.display = "none";
+            v.pause();
+        } else {
+            v.style.display = "block";
+            v.play();
+        }
+    }
+</script>
+
+</body>
+</html>
